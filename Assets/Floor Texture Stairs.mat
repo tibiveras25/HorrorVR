@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Floor Texture
+  m_Name: Floor Texture Stairs
   m_Shader: {fileID: -6465566751694194690, guid: fcccce1c671a03b4cb024d6d529c1fc3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -106,8 +106,8 @@ Material:
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _ScaleFactorX: 0.05
-    - _ScaleFactorY: 0.05
+    - _ScaleFactorX: 0.19
+    - _ScaleFactorY: 0.12
     - _ScaleFactorZ: 0.05
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
