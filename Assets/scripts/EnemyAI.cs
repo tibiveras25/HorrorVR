@@ -20,7 +20,6 @@ public class EnemyAI : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 
-        // Fallback: If animator isn't assigned in inspector, try to find it on this object
         if (animator == null)
         {
             animator = GetComponent<Animator>();
@@ -29,11 +28,7 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        // Safety check to avoid null reference errors
-        if (player == null || agent == null)
-        {
-            return;
-        }
+        if (player == null || agent == null) return;
 
         float distance = Vector3.Distance(transform.position, player.position);
 
@@ -45,8 +40,11 @@ public class EnemyAI : MonoBehaviour
     {
         if (distance <= jumpscareDistance)
         {
-            // Stop moving when close enough to jumpscare
             agent.isStopped = true;
+
+            // Make the enemy face the player during the jumpscare
+            Vector3 lookPos = new Vector3(player.position.x, transform.position.y, player.position.z);
+            transform.LookAt(lookPos);
 
             if (!hasJumpScared)
             {
@@ -56,14 +54,12 @@ public class EnemyAI : MonoBehaviour
         }
         else if (distance < chaseDistance)
         {
-            // Reset jumpscare and start chasing
             hasJumpScared = false;
             agent.isStopped = false;
             agent.SetDestination(player.position);
         }
         else
         {
-            // Out of range: stop the agent
             agent.isStopped = true;
         }
     }
@@ -73,11 +69,8 @@ public class EnemyAI : MonoBehaviour
         if (animator == null) return;
 
         float speed = agent.velocity.magnitude;
-
-        // Updates the float parameter if you're using a Blend Tree
         animator.SetFloat("Speed", speed);
 
-        // State-based animation logic
         if (distance <= jumpscareDistance)
         {
             SetAnimationStates(idle: false, walking: false, running: false, attacking: true);
@@ -96,7 +89,6 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    // Helper method to keep HandleAnimations clean
     private void SetAnimationStates(bool idle, bool walking, bool running, bool attacking)
     {
         animator.SetBool("IsIdle", idle);
